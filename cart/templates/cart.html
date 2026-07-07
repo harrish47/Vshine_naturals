@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+
+<body>
+    <div class="container py-5">
+
+        <div class="row">
+
+            <!-- Cart Items -->
+            <div class="col-lg-8">
+
+                <h3 class="fw-bold mb-4">Shopping Cart</h3>
+
+                {% for item in cart_items %}
+
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+
+                    <div class="card-body">
+
+                        <div class="row align-items-center">
+
+                            <!-- Product Image -->
+                            <div class="col-md-3 text-center">
+                                <img src="{{ item.product.image.url }}" class="img-fluid rounded-3"
+                                    style="height:120px; object-fit:cover;">
+                            </div>
+
+                            <!-- Product Details -->
+                            <div class="col-md-5">
+
+                                <h5 class="fw-bold">
+                                    {{ item.product.name }}
+                                </h5>
+
+                                <p class="text-muted mb-1">
+                                    ₹{{ item.product.price }}
+                                </p>
+
+                                <small class="text-success">
+                                    In Stock
+                                </small>
+
+                            </div>
+
+                            <!-- Quantity -->
+                            <div class="col-md-2 text-center">
+
+                                <div class="btn-group">
+
+                                    <button class="btn btn-outline-secondary btn-sm">
+                                        -
+                                    </button>
+
+                                    <button class="btn btn-light btn-sm" disabled>
+                                        {{ item.quantity }}
+                                    </button>
+
+                                    <button class="btn btn-outline-secondary btn-sm">
+                                        +
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Total & Delete -->
+                            <div class="col-md-2 text-end">
+
+                                <h5 class="fw-bold text-success">
+                                    ₹{{ item.total_price }}
+                                </h5>
+
+                                <a href="{% url 'cart:remove_cart' item.id%}" class="class=" btn btn-outline-danger btn-sm mt-2"">Remove</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body text-center py-5">
+                        <h4>Your cart is empty 🛒</h4>
+                        <a href="#" class="btn btn-primary mt-3">
+                            Continue Shopping
+                        </a>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Order Summary -->
+            <div class="col-lg-4">
+
+                <div class="card shadow-sm border-0 rounded-4 sticky-top">
+
+                    <div class="card-body">
+
+                        <h4 class="fw-bold mb-4">
+                            Order Summary
+                        </h4>
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Subtotal</span>
+                            <strong>₹{{ subtotal }}</strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Shipping</span>
+                            <strong>FREE</strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Tax</span>
+                            <strong>₹0</strong>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between mb-4">
+
+                            <h5>Total</h5>
+
+                            <h5 class="text-success">
+                                ₹{{ subtotal }}
+                            </h5>
+
+                        </div>
+
+                        <button class="btn btn-dark w-100 py-2">
+                            Proceed to Checkout
+                        </button>
+
+                        <a href="#" class="btn btn-outline-secondary w-100 mt-2">
+                            Continue Shopping
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>
