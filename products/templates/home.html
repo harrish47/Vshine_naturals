@@ -32,7 +32,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Products</a>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Cart</a>
+                        <a class="nav-link" href="{% url 'cart:cart'%}">Cart</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Orders</a>
@@ -104,7 +104,7 @@
                                 <span class="badge bg-danger">Out of Stock</span>
                                 {% endif %}
                             </p>
-                            <a href="#" class="btn btn-dark w-100">
+                            <a href="{% url 'cart:add_to_cart' product.id %}" class="btn btn-dark w-100">
                                 Add to Cart
                             </a>
                         </div>
