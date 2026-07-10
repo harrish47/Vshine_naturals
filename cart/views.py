@@ -41,3 +41,17 @@ def remove_cart(request, cart_item_id):
     cart_item.delete()
     return redirect('cart:cart')
         
+def increase_quantity(request, cart_item_id):
+    cart_item = CartItem.objects.get(id=cart_item_id)
+    cart_item.quantity += 1
+    cart_item.save()
+    return redirect('cart:cart')
+
+def decrease_quantity(request, cart_item_id):
+    cart_item = CartItem.objects.get(id=cart_item_id)
+    if cart_item.quantity == 1:
+        cart_item.delete()
+    else:
+        cart_item.quantity -= 1
+        cart_item.save()
+    return redirect('cart:cart')
