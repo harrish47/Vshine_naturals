@@ -8,4 +8,13 @@ def list_products(request):
     }
     return render(request, 'home.html', context)
 
+def view_products(request):
+    products = Products.objects.all()
+    categories = Catagories.objects.all()
+    context = {
+        'products': products,
+        'categories': categories
+    }
+    return render(request, 'products.html', context)
+
 
